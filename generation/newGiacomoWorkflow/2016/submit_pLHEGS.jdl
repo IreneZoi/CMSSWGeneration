@@ -1,0 +1,27 @@
+Universe = vanilla 
+Executable = wrapper_pLHEGS.sh
+
+gridpack_name = aQGC_ZlepZhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
+nevents_x_job = 10
+
+arguments = $(Step) $(gridpack_name) $(nevents_x_job)
+use_x509userproxy = true
+
++JobFlavour = "longlunch"
++REQUIRED_OS = "rhel6"
+request_cpus = 2 
+
+Error = log_GS/$(Step).err
+Output = log_GS/$(Step).out
+Log = log_GS/$(Step).log
+
+should_transfer_files = YES
+
+transfer_input_files = $(gridpack_name), data/CMSSWs/CMSSW_7_1_32.tgz, data/CMSSWs/CMSSW_7_1_47_PYTHIA240.tgz, data/input_2016_WV/SMP-RunIISummer15GS-00266_1_cfg.py, data/input_2016_WV/SMP-RunIIWinter15pLHE-00016_1_cfg.py
+
+transfer_output_remaps = "SMP-RunIISummer15GS-00266.root = GS/$(Step).root"
+
+when_to_transfer_output = ON_EXIT
+
+queue 1
+

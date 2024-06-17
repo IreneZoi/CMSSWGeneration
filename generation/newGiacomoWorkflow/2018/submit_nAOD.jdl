@@ -1,0 +1,19 @@
+Universe = vanilla
+Executable = wrapper_nAOD.sh
+
+filename = pLHE/$(Step).root
+
+arguments = $(Step)
+use_x509userproxy = true
+ +JobFlavour = "nextweek"
+
+should_transfer_files = YES
+Error = log_nAOD/$(Step).err
+Output = log_nAOD/$(Step).out
+Log = log_nAOD/$(Step).log
+
+transfer_input_files = $(filename), ../data/input_2018_ZV/SMP-RunIIAutumn18NanoAODv7-00058_1_cfg.py, ../data/input_2018_ZV/SMP-RunIIAutumn18DRPremix-00275_2_cfg.py, ../data/input_2018_ZV/SMP-RunIIAutumn18DRPremix-00275_1_cfg.py, ../data/input_2018_ZV/SMP-RunIIAutumn18MiniAOD-00276_1_cfg.py, ../data/input_2018_ZV/SMP-RunIIFall18GS-00284_1_cfg.py, ../data/CMSSWs/CMSSW_10_2_22_ZV_EFT.tgz, ../data/CMSSWs/CMSSW_10_2_5.tgz, ../data/CMSSWs/CMSSW_10_2_24_patch1.tgzz
+transfer_output_remaps = "SMP-RunIIAutumn18NanoAODv7-00058.root = nAOD/$(Step).root"
+when_to_transfer_output = ON_EXIT
+
+queue 1

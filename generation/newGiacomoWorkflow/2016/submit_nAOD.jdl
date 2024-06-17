@@ -1,0 +1,23 @@
+Universe = vanilla 
+Executable = wrapper_nAOD.sh
+
+filename = GS/$(Step).root
+
+arguments = $(Step) $(filename)
+use_x509userproxy = true
+
++JobFlavour = "tomorrow"
+request_cpus = 2
+
+Error = log_nAOD/$(Step).err
+Output = log_nAOD/$(Step).out
+Log = log_nAOD/$(Step).log
+
+should_transfer_files = YES
+
+transfer_input_files = $(filename),data/CMSSWs/CMSSW_8_0_31.tgz, data/CMSSWs/CMSSW_9_4_9.tgz, data/CMSSWs/CMSSW_10_2_24_patch1_ZV_EFT.tgz, data/input_2016_WV/SMP-RunIISummer16DR80Premix-00645_1_cfg.py, data/input_2016_WV/SMP-RunIISummer16DR80Premix-00645_2_cfg.py, data/input_2016_WV/SMP-RunIISummer16MiniAODv3-00478_1_cfg.py, data/input_2016_WV/SMP-RunIISummer16NanoAODv7-00422_1_cfg.py
+
+transfer_output_remaps = "SMP-RunIISummer16NanoAODv7-00422.root = nAOD/$(Step).root"
+when_to_transfer_output = ON_EXIT
+
+queue 1
