@@ -4,3 +4,10 @@ CMSSW_*.tgz
 *.err*
 *.mk
 output/*
+*.log
+c.txt
+docker_stderror
+*tar.xz
+*.lhe
+*.root
+data/input_201?/*ev
