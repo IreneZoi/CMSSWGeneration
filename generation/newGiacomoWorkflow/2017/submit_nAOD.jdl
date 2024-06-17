@@ -1,0 +1,18 @@
+Universe = vanilla
+Executable = wrapper_nAOD.sh
+
+arguments = $(Step)
+use_x509userproxy = true
++JobFlavour = "nextweek"
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/cmssw/cms:rhel7"
+request_memory = 2100
+
+should_transfer_files = YES
+Error = log_nAOD/$(Step).err
+Output = log_nAOD/$(Step).out
+Log = log_nAOD/$(Step).log
+
+transfer_input_files = ../data/input_2017_ZV/SMP-RunIIFall17NanoAODv7-00268_1_cfg.py, ../data/input_2017_ZV/SMP-RunIIFall17DRPremix-00331_2_cfg.py, ../data/input_2017_ZV/SMP-RunIIFall17DRPremix-00331_1_cfg.py, ../data/input_2017_ZV/SMP-RunIIFall17MiniAODv2-00338_1_cfg.py, ../data/input_2017_ZV/SMP-RunIIFall17GS-00271_1_cfg.py, ../data/CMSSWs/CMSSW_9_3_19.tgz, ../data/CMSSWs/CMSSW_9_4_7.tgz, ../data/CMSSWs/CMSSW_10_2_24_patch1_ZV_EFT.tgz
+when_to_transfer_output = ON_EXIT
+
+queue 1
