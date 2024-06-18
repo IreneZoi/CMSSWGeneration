@@ -11,3 +11,4 @@ docker_stderror
 *.lhe
 *.root
 data/input_201?/*ev
+newGiacomoWorkflow/2017/2017_aQGC_*
