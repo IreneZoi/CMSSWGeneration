@@ -37,8 +37,10 @@ if "fnal" in os.uname()[1]:
     rootpath="/eos/uscms/store/group/lnujj/aQGC_VVJJ_Private_Production_{}/{}/".format(args.year,folder)
     if args.step == "mini":
         rootpath+="*MiniAOD*.root"
+    elif args.step == "lhe":
+        rootpath+="*inLHE*.root"
     elif args.step == "nano":
-        rootpath+="*NanoAOD*.root"
+        rootpath+="NanoAODv7/*NanoAOD*.root"
     else:
         print "unknown step ",args.step
         sys.exit()
@@ -51,6 +53,7 @@ print("log files path ", logpath)
 
 done = glob.glob(rootpath)
 str_done = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-1], done))
+if args.step == "lhe": str_done = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-2], done))
 done = list(map(int,str_done))
 done = sorted(done)
 print (" done ",set(done))

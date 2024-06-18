@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/SMP-RunIISummer15wmLHEGS-00497-fragment.py --python_filename SMP-RunIISummer15wmLHEGS-00497_1_cfg.py --eventcontent RAWSIM,LHE --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --fileout file:SMP-RunIISummer15wmLHEGS-00497.root --conditions MCRUN2_71_V1::All --beamspot Realistic50ns13TeVCollision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(14) --step LHE,GEN,SIM --magField 38T_PostLS1 --no_exec --mc -n 100
+# with command line options: Configuration/GenProduction/python/SMP-RunIISummer15wmLHEGS-00497-fragment.py --python_filename SMP-RunIISummer15wmLHEGS-00497_1_cfg.py --eventcontent RAWSIM,LHE --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --fileout file:SMP-RunIISummer15wmLHEGS-00497.root --conditions MCRUN2_71_V1::All --beamspot Realistic50ns13TeVCollision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(44) --step LHE,GEN,SIM --magField 38T_PostLS1 --no_exec --mc -n 100
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('SIM')
@@ -24,7 +24,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(200)
 )
 
 # Input source
@@ -37,7 +37,7 @@ process.options = cms.untracked.PSet(
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.19 $'),
-    annotation = cms.untracked.string('Configuration/GenProduction/python/SMP-RunIISummer15wmLHEGS-00497-fragment.py nevts:100'),
+    annotation = cms.untracked.string('Configuration/GenProduction/python/SMP-RunIISummer15wmLHEGS-00497-fragment.py nevts:200'),
     name = cms.untracked.string('Applications')
 )
 
@@ -131,7 +131,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    nEvents = cms.untracked.uint32(100),
+    nEvents = cms.untracked.uint32(200),
     outputFile = cms.string('cmsgrid_final.lhe'),
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
@@ -174,4 +174,4 @@ process = customisePostLS1(process)
 # End of customisation functions
 
 # Customisation from command line
-process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(14)
+process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(44)
