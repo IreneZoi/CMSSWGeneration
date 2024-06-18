@@ -1,24 +1,25 @@
 import os
 import fileinput
 
-year    = "2016"
+year    = "2018"
 samples = [
-"aQGC_WMhadZlepJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_WMhadZlepJJ_EWK_LO_SM_mjj100_pTj10",
 "aQGC_WPlepWMhadJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_ZlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_WPhadZlepJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_WPhadWMlepJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_WMlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_WPlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_ZlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_WPhadZlepJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_WPhadWMlepJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_WMlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
+# "aQGC_WPlepZhadJJ_EWK_LO_SM_mjj100_pTj10",
 # "aQGC_WMlepWMhadJJ_EWK_LO_SM_mjj100_pTj10",
-"aQGC_WPlepWPhadJJ_EWK_LO_SM_mjj100_pTj10"
+# "aQGC_WPlepWPhadJJ_EWK_LO_SM_mjj100_pTj10"
 ]
 
 cwd = os.getcwd()
 for sample in samples:
-    print "sample: ",sample
+    print( "sample: ",sample)
     filepath = '{}_TuneCP5_MINIAOD_{}.txt'.format(sample,year)
-    directory = '{}_{}_official/'.format(year,sample)
+    directory = '{}_{}_official_bis/'.format(year,sample)
+    # os.mkdir(directory)
     files = []
     cnt = 0
     with open(filepath) as fp:
@@ -32,8 +33,8 @@ for sample in samples:
     # print ( cnt )
     wrapperFile = 'wrapper.sh'
     jdlFile     = 'submit.jdl'
-    os.mkdir(directory+'wrappers')
-    os.mkdir(directory+'submitters')
+    # os.mkdir(directory+'wrappers')
+    # os.mkdir(directory+'submitters')
     for i in range(cnt):
         wrapperFile_new = 'wrappers/{}'.format(wrapperFile.replace(".sh","_"+str(i)+".sh"))
         jdlFile_new = '{}submitters/{}'.format(directory,jdlFile.replace(".jdl","_"+str(i)+".jdl"))

@@ -1,18 +1,18 @@
 #!bin/bash
 
-year=2017
+year=2018
 
 
 samples=(
-aQGC_WMhadZlepJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WMhadZlepJJ_EWK_LO_SM_mjj100_pTj10
 aQGC_WPlepWMhadJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_ZlepZhadJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WPhadZlepJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WPhadWMlepJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WMlepZhadJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WPlepZhadJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WMlepWMhadJJ_EWK_LO_SM_mjj100_pTj10
-aQGC_WPlepWPhadJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_ZlepZhadJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WPhadZlepJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WPhadWMlepJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WMlepZhadJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WPlepZhadJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WMlepWMhadJJ_EWK_LO_SM_mjj100_pTj10
+# aQGC_WPlepWPhadJJ_EWK_LO_SM_mjj100_pTj10
 )
 
 for sample in ${samples[*]}; do
@@ -32,6 +32,6 @@ for sample in ${samples[*]}; do
 
 
     # cp -r ${year}_official ${year}_${sample}_official
-    echo /eos/uscms/store/group/lnujj/aQGC_VVJJ_PrivateNanoProduction_${year}/${year}_${sample}/NanoAODv7
-    ll /eos/uscms/store/group/lnujj/aQGC_VVJJ_PrivateNanoProduction_${year}/${year}_${sample}/NanoAODv7 | wc -l
+    echo /eos/uscms/store/group/lnujj/aQGC_VVJJ_PrivateNanoProduction_${year}_bis/${year}_${sample}/NanoAODv7
+    ll /eos/uscms/store/group/lnujj/aQGC_VVJJ_PrivateNanoProduction_${year}_bis/${year}_${sample}/NanoAODv7 | wc -l
 done
