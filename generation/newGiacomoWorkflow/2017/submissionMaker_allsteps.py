@@ -31,15 +31,14 @@ for sample in samples:
     
     # submit pLHE
     wrapperFile = 'wrapper_pLHE_fullproduction.sh'
-    jdlFile     = 'submit_pLHE_fullproduction.jdl'
+    # jdlFile     = 'submit_pLHE_fullproduction.jdl'
     if submitNano == True:
         print(" Submitting Nano!!!")
         # submit nano
         wrapperFile = 'wrapper_nAOD_fullproduction.sh'
-        jdlFile     = 'submit_nAOD_fullproduction.jdl'
+        # jdlFile     = 'submit_nAOD_fullproduction.jdl'
 
     wrapperFile_new = '{}'.format(wrapperFile)
-    jdlFile_new = '{}'.format(jdlFile)
     filein = open('{}'.format(wrapperFile))
     fileout = open('{}{}'.format(directory,wrapperFile_new),"wt")
     for line in filein:
@@ -47,13 +46,16 @@ for sample in samples:
     filein.close()
     fileout.close()
 
+
+    jdlFile="submit_allsteps.jdl"
+    jdlFile_new = '{}'.format(jdlFile)
     filein = open('{}'.format(jdlFile))
     fileout = open('{}{}'.format(directory,jdlFile_new),"wt")
     for line in filein:
-        fileout.write(line.replace('{WRAPPER}', wrapperFile_new).replace('{SAMPLE}',sample))
+        fileout.write(line.replace('{SAMPLE}',sample))
     filein.close()
     fileout.close()
-
+    os.system("cp wrapper_allsteps.sh {}".format(directory))
     os.chdir(directory)
     
     os.system("condor_submit {}".format(jdlFile_new))

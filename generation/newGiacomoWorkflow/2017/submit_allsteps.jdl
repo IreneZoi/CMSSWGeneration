@@ -1,0 +1,23 @@
+Universe = vanilla 
+Executable = wrapper_allsteps.sh
+
+nevents_x_job = 500
+
+arguments = $(Step) $(nevents_x_job)
+use_x509userproxy = true
+
++JobFlavour = "workday"
+request_cpus = 2 
+request_memory = 3000
+
+Error = log/{SAMPLE}_$(Step).err
+Output = log/{SAMPLE}_$(Step).out
+Log = log/{SAMPLE}_$(Step).log
+
+should_transfer_files = YES
+
+transfer_input_files = wrapper_pLHE_fullproduction.sh, wrapper_nAOD_fullproduction.sh, ../../data/CMSSWs/CMSSW_7_1_32.tgz, ../../data/input_2016_WV/SMP-RunIIWinter15pLHE-00016_1_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17NanoAODv7-00268_1_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17DRPremix-00331_2_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17DRPremix-00331_1_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17MiniAODv2-00338_1_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17GS-00271_1_cfg.py, ../../data/CMSSWs/CMSSW_9_3_19.tgz, ../../data/CMSSWs/CMSSW_9_4_7.tgz, ../../data/CMSSWs/CMSSW_10_2_24_patch1_ZV_EFT.tgz
+
+when_to_transfer_output = ON_EXIT
+
+Queue 10000 in ({SAMPLE})
