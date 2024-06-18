@@ -17,7 +17,7 @@ def findLatestSubmit(folder,jdlfile):
     return ids[-1]+1
 
 minimumFileSize = 2500000
-verbose = False
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d","--directory", help="Name for the generation, i.e. directory location on eos & output log" , required=True)
@@ -25,13 +25,16 @@ parser.add_argument("-y","--year", help="Year") # , required=True)
 parser.add_argument("-n","--njobs", help="Number of jobs", default=-1,type=int)
 parser.add_argument("-j","--jdlfile", help="jdl file used for submission", default="submit.jdl")
 parser.add_argument("-s","--step", help="mini or nano", default="mini")
+parser.add_argument("-v","--verbose", help="higher value means more verbosity", default=0,type=int)
+
 args = parser.parse_args()
 
+verbose = args.verbose
 folder = args.directory.replace("/","")
-if(verbose): print ("folder ",folder)
+if(verbose >= 2): print ("folder ",folder)
 
 jdlfile = args.jdlfile
-if(verbose): print (" the jdlfile to be used is ",jdlfile)
+if(verbose >= 2): print (" the jdlfile to be used is ",jdlfile)
 
 # year=args.year
 rootpath="output/{}/root/*.root".format(folder)
@@ -41,7 +44,7 @@ if "fnal" in os.uname()[1]:
         
 logpath="2017_{}/log/{}_*.out".format(folder,folder)
 
-if(verbose): 
+if(verbose >= 2): 
     print("root files path ",rootpath)
     print("log files path ", logpath)
 
@@ -52,7 +55,7 @@ done = list(map(int,str_done))
 done = sorted(done)
 
 print ("Number of done root files: ",len(done))
-if(verbose):  print (" done ",set(done))
+if(verbose >=1):  print (" done ",set(done))
 
 wrong_size = []
 for file in done_files:
@@ -63,7 +66,7 @@ for file in done_files:
 
 
 print("Number of root files with size below {}: {}".format(minimumFileSize,len(wrong_size)))
-if(verbose): print(" files too small ",wrong_size)
+if(verbose >=0 ): print(" files too small ",wrong_size)
 
 finished = glob.glob(logpath)
 # print(" finished ",finished)
@@ -71,18 +74,18 @@ str_finished = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-1],
 finished = list(map(int,str_finished))
 finished = sorted(finished)
 
-if(verbose): print(" finished files ",set(finished))
-if(verbose): print(" number of finished ",len(finished))
+if(verbose >=2): print(" finished files ",set(finished))
+if(verbose >=2): print(" number of finished ",len(finished))
 
 missing_out = list(set(finished).difference(set(done)))
 if len(missing_out) > 0:
     print("missing root files list from the out files ",sorted(missing_out))
     print("overall the number of missing files is ",len(missing_out))
 
-missing_dumb = list(set(sorted(done)).difference(set(finished))) 
-if len(missing_dumb) > 0:
-    print("List of the files for which I have the final root files but no out/err because still running for no reason!! ",sorted(missing_dumb))
-    print("overall the number of missing files is ",len(missing_dumb))
+# missing_dumb = list(set(sorted(done)).difference(set(finished))) 
+# if len(missing_dumb) > 0:
+#     print("List of the files for which I have the final root files but no out/err because still running for no reason!! ",sorted(missing_dumb))
+#     print("overall the number of missing files is ",len(missing_dumb))
 
 
 logpath="2017_{}/log/{}_*.log".format(folder,folder)
@@ -90,13 +93,14 @@ submitted = glob.glob(logpath)
 str_submitted = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-1], submitted))
 submitted = list(map(int,str_submitted))
 submitted = sorted(submitted)
-if verbose : print("List of the submitted files ",sorted(submitted))
 print("Number of submitted files: ",len(submitted))
+if verbose >=3 : print("List of the submitted files ",sorted(submitted))
 
 # print(" done ",done)
 running = list(set(submitted).difference(set(done))) 
-if verbose : print("List of the files still running ",sorted(running))
 print("Number of running files: ",len(running))
+if verbose >=2: print("List of the files still running ",sorted(running))
+
 
 
 
