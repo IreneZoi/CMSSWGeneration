@@ -13,12 +13,15 @@ xrdcp -f root://cmseos.fnal.gov//store/group/lnujj/aQGC_VVJJ_Private_Production_
 # first argument is $(Step)
 let seed=$1+1
 
+echo "----------------------------------------"
+echo "----        seed ${seed}      ----------"
+echo "----------------------------------------"
 mkdir temp_dir; tar -axvf ${gridpack} --directory temp_dir; cd temp_dir
 
 # number of events requested, seed, number of cpus
 # third argument is $(nevents_x_job)
 # here 2 is the number of core requested
-./runcmsgrid.sh $3 $seed 2
+./runcmsgrid.sh $2 $seed 2
 
 mv cmsgrid_final.lhe ..; cd ..
 
