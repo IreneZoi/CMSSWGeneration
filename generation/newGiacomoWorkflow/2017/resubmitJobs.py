@@ -32,7 +32,7 @@ args = parser.parse_args()
 verbose = args.verbose
 folder = args.directory.replace("/","")
 if(verbose >= 2): print ("folder ",folder)
-
+print("Cheking sample: {}".format(folder))
 jdlfile = args.jdlfile
 if(verbose >= 2): print (" the jdlfile to be used is ",jdlfile)
 
