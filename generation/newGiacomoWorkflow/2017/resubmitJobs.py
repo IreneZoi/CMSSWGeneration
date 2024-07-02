@@ -16,8 +16,8 @@ def findLatestSubmit(folder,jdlfile):
     print(ids[-1]+1)
     return ids[-1]+1
 
-minimumFileSize = 2500000
-
+minimumNanoSize = 2500000
+minimumPLheSize = 12000000
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d","--directory", help="Name for the generation, i.e. directory location on eos & output log" , required=True)
@@ -38,6 +38,53 @@ if(verbose >= 2): print (" the jdlfile to be used is ",jdlfile)
 
 # year=args.year
 rootpath="output/{}/root/*.root".format(folder)
+
+if "fnal" in os.uname()[1]:
+    rootpath="/eos/uscms/store/group/lnujj/aQGC_VVJJ_Private_Production_2017_GiacomoChain/{}/pLHE/pLHE_*.root".format(folder)
+        
+        
+logpath="2017_{}/log/{}_*.out".format(folder,folder)
+
+if(verbose >= 2): 
+    print("root files path ",rootpath)
+    print("log files path ", logpath)
+
+done_plhe_files = glob.glob(rootpath)
+# print(" doooooneeeeeee ",done_files)
+str_done = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-1], done_plhe_files))
+doneplhe = list(map(int,str_done))
+doneplhe = sorted(doneplhe)
+print ("Number of done pLHE root files: ",len(doneplhe))
+if(verbose >=2):  print (" done ",set(doneplhe))
+
+wrong_size = []
+for file in done_plhe_files:
+    filesize = os.path.getsize(file)
+    # print (" file {} size {}".format(file,filesize))
+    if filesize < minimumPLheSize:
+        wrong_size.append(file.split("/")[-1].split(".")[0].split("_")[-1])
+
+print("Number of root files with size below {}: {}".format(minimumPLheSize,len(wrong_size)))
+if(verbose >=0 ): print(" files too small ",wrong_size)
+
+
+numbers = set(doneplhe)
+missing_plhe = []
+for i in range(0, 9999):
+    if i not in numbers:
+            missing_plhe.append(i)
+            
+if len(missing_plhe) > 0:
+    if(verbose >=2):print("missing plhe files ",sorted(missing_plhe))
+    print("overall the number of missing plhe files  is ",len(missing_plhe))
+    submitstring = ""
+    for number in sorted(missing_plhe):
+        submitstring = submitstring + " "+str(number)+" \n"
+    if(verbose >=1):
+        print("String for submission:")    
+        print(submitstring)
+
+
 if "fnal" in os.uname()[1]:
     rootpath="/eos/uscms/store/group/lnujj/aQGC_VVJJ_Private_Production_2017_GiacomoChain/{}/nAOD/nano_*.root".format(folder)
         
@@ -54,19 +101,33 @@ str_done = list(map(lambda k: k.split("/")[-1].split(".")[0].split("_")[-1], don
 done = list(map(int,str_done))
 done = sorted(done)
 
-print ("Number of done root files: ",len(done))
-if(verbose >=1):  print (" done ",set(done))
+print ("Number of done nano aod root files: ",len(done))
+if(verbose >=2):  print (" done ",set(done))
 
 wrong_size = []
 for file in done_files:
     filesize = os.path.getsize(file)
     # print (" file {} size {}".format(file,filesize))
-    if filesize < minimumFileSize:
+    if filesize < minimumNanoSize:
         wrong_size.append(file.split("/")[-1].split(".")[0].split("_")[-1])
 
 
-print("Number of root files with size below {}: {}".format(minimumFileSize,len(wrong_size)))
+print("Number of root files with size below {}: {}".format(minimumNanoSize,len(wrong_size)))
 if(verbose >=0 ): print(" files too small ",wrong_size)
+
+
+missing_nano_only = list(set(doneplhe).difference(set(done)))
+if len(missing_nano_only) > 0:
+    if(verbose >=2):print("missing nano files list from the done plhe files ",sorted(missing_nano_only))
+    print("overall the number of missing nano files for which I have a pLHE is ",len(missing_nano_only))
+    submitstring = ""
+    for number in sorted(missing_nano_only):
+        submitstring = submitstring + " "+str(number)+" \n"
+    if(verbose >=1):
+        print("String for submission:")    
+        print(submitstring)
+    
+
 
 finished = glob.glob(logpath)
 # print(" finished ",finished)
