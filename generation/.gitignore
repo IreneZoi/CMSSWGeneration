@@ -12,3 +12,5 @@ docker_stderror
 *.root
 data/input_201?/*ev
 newGiacomoWorkflow/2017/2017_aQGC_*
+*.txt
+uprootenv
