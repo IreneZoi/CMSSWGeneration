@@ -31,6 +31,8 @@ args = parser.parse_args()
 
 verbose = args.verbose
 folder = args.directory.replace("/","")
+if (folder.find("aQGC_WMlepWMhadJJ_EWK_LO_SM_mjj100_pTj10")!=-1): minimumPLheSize  = 10000000
+if (folder.find("aQGC_WPlepWPhadJJ_EWK_LO_SM_mjj100_pTj10")!=-1): minimumPLheSize  = 4700000
 if(verbose >= 2): print ("folder ",folder)
 print("Cheking sample: {}".format(folder))
 jdlfile = args.jdlfile
