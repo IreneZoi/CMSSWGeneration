@@ -1,0 +1,27 @@
+Universe = vanilla 
+Executable = {WRAPPER}
+
+nevents_x_job = 500
+
+arguments = $(Step) $(nevents_x_job)
+use_x509userproxy = true
+
++JobFlavour = "nextweek"
++REQUIRED_OS = "rhel7"
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/cmssw/cms:rhel7" 
+request_cpus = 1 
+request_memory = 3000
+
+Error = log_pLHE/{SAMPLE}_$(Step).err
+Log = log_pLHE/{SAMPLE}_$(Step).log
+
+should_transfer_files = YES
+
+transfer_input_files = ../../data/input_2017_ZV/SMP-RunIIFall17NanoAODv7-00268_1_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17DRPremix-00331_2_cfg.py, ../../data/input_2017_ZV/SMP-RunIIFall17MiniAODv2-00338_1_cfg.py, ../../data/CMSSWs/CMSSW_9_4_7.tgz, ../../data/CMSSWs/CMSSW_10_2_24_patch1_ZV_EFT.tgz
+
+when_to_transfer_output = ON_EXIT
+
+Queue Step from (
+    
+)
+
